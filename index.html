@@ -8,33 +8,151 @@
             color: #00f0ff;
             font-family: Arial;
             text-align: center;
+            margin: 0;
         }
+
         h1 {
-            margin-top: 50px;
+            margin-top: 40px;
         }
+
+        .login-box {
+            margin-top: 150px;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: #111a2e;
+            color: #00f0ff;
+        }
+
+        button {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: none;
+            background: #00f0ff;
+            color: black;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        select {
+            padding: 10px;
+            margin: 15px;
+            background: #111a2e;
+            color: #00f0ff;
+            border: none;
+            border-radius: 8px;
+        }
+
         .card {
             background: #111a2e;
             margin: 20px auto;
             padding: 20px;
-            width: 300px;
+            width: 350px;
             border-radius: 12px;
+        }
+
+        #mainPanel {
+            display: none;
         }
     </style>
 </head>
 <body>
 
-<h1>Analentic Projects</h1>
-<p>Mini Analytics HQ</p>
-
-<div class="card">
-    <h2>Online</h2>
-    <p id="online">1523</p>
+<div id="loginScreen" class="login-box">
+    <h1>Analentic Projects</h1>
+    <p>Введите пароль для доступа</p>
+    <input type="password" id="passwordInput" placeholder="Пароль">
+    <button onclick="checkPassword()">Войти</button>
+    <p id="error" style="color:red;"></p>
 </div>
 
-<div class="card">
-    <h2>Server Status</h2>
-    <p>Active</p>
+<div id="mainPanel">
+    <h1>Analentic Projects</h1>
+    <p>Mini Analytics HQ</p>
+
+    <select id="gameSelect" onchange="showStats()">
+        <option value="">Выберите игру</option>
+        <option value="arizona">Arizona RP</option>
+        <option value="grand">Grand Mobile</option>
+        <option value="black">Black Russia</option>
+    </select>
+
+    <div class="card" id="statsCard" style="display:none;">
+        <h2 id="gameTitle"></h2>
+        <p><b>Онлайн:</b> <span id="online"></span></p>
+        <p><b>Сервера:</b> <span id="servers"></span></p>
+        <p><b>Дата последнего обновления:</b> <span id="update"></span></p>
+        <p><b>Дата создания:</b> <span id="created"></span></p>
+        <p><b>Разработчики:</b> <span id="devs"></span></p>
+        <p><b>Спонсоры:</b> <span id="sponsors"></span></p>
+        <p><b>Движок:</b> <span id="engine"></span></p>
+    </div>
 </div>
+
+<script>
+const PASSWORD = "Ben2Tennis3451";
+
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === PASSWORD) {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainPanel").style.display = "block";
+    } else {
+        document.getElementById("error").innerText = "Неверный пароль";
+    }
+}
+
+const data = {
+    arizona: {
+        name: "Arizona RP",
+        online: "Загрузка...",
+        servers: "Загрузка...",
+        update: "Загрузка...",
+        created: "2014",
+        devs: "Arizona Team",
+        sponsors: "Community",
+        engine: "GTA SA Multiplayer"
+    },
+    grand: {
+        name: "Grand Mobile",
+        online: "Загрузка...",
+        servers: "Загрузка...",
+        update: "Загрузка...",
+        created: "2022",
+        devs: "Grand Team",
+        sponsors: "Mobile Investors",
+        engine: "Unity"
+    },
+    black: {
+        name: "Black Russia",
+        online: "Загрузка...",
+        servers: "Загрузка...",
+        update: "Загрузка...",
+        created: "2020",
+        devs: "Black Russia Studio",
+        sponsors: "Private",
+        engine: "Unity"
+    }
+};
+
+function showStats() {
+    const game = document.getElementById("gameSelect").value;
+    if (!game) return;
+
+    document.getElementById("statsCard").style.display = "block";
+    document.getElementById("gameTitle").innerText = data[game].name;
+    document.getElementById("online").innerText = data[game].online;
+    document.getElementById("servers").innerText = data[game].servers;
+    document.getElementById("update").innerText = data[game].update;
+    document.getElementById("created").innerText = data[game].created;
+    document.getElementById("devs").innerText = data[game].devs;
+    document.getElementById("sponsors").innerText = data[game].sponsors;
+    document.getElementById("engine").innerText = data[game].engine;
+}
+</script>
 
 </body>
 </html>
