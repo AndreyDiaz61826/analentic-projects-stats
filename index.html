@@ -2,315 +2,273 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Analentic Projects | Arizona & Rodina RP</title>
+<title>Analentic Projects</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('https://images.unsplash.com/photo-1612831817748-1765649c7b13?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-    background-size: cover;
-    color: #e0e0e0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f2f3f5;
+    color: #2c2c2c;
 }
-.overlay {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.6);
-}
-header {
-    background: rgba(0,0,0,0.85);
-    padding: 18px 0;
-    text-align: center;
-    border-bottom: 3px solid #00bfff;
-}
-header h1 {
-    margin: 0;
-    font-size: 2.8rem;
-    color: #00bfff;
-    text-shadow: 0 0 10px #00bfff;
-}
-header p {
-    margin: 4px 0 0;
-    font-style: italic;
-    color: #adb5bd;
-}
-.nav {
+
+/* Верхняя панель */
+.topbar {
+    background: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+    padding: 12px 20px;
     display: flex;
-    justify-content: center;
-    gap: 18px;
-    margin: 22px 0;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #c0392b;
+}
+
+/* Навигация как на форуме */
+.nav {
+    background: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px;
+}
+
 .nav button {
-    padding: 11px 22px;
-    font-size: 1rem;
-    background: rgba(0,0,0,0.75);
-    border: 2px solid #00bfff;
-    border-radius: 8px;
-    color: #00bfff;
+    background: none;
+    border: none;
+    font-size: 15px;
     cursor: pointer;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+}
+
+.nav button.active {
+    border-bottom: 2px solid #c0392b;
+    font-weight: bold;
+}
+
+/* Контент */
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.block {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.block-header {
+    padding: 12px 15px;
+    background: #fafafa;
+    border-bottom: 1px solid #dcdcdc;
+    font-weight: bold;
+}
+
+.block-content {
+    padding: 15px;
+}
+
+select {
+    padding: 8px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Discord блок */
+.discord-footer {
+    margin: 40px auto;
+    max-width: 1000px;
+    background: #5865F2;
+    color: white;
+    padding: 18px;
+    border-radius: 6px;
+    text-align: center;
     transition: 0.3s;
 }
-.nav button.active,
-.nav button:hover {
-    background: #00bfff;
-    color: #020408;
-    box-shadow: 0 0 20px #00bfff;
-}
-.content {
-    padding: 20px;
-    max-width: 980px;
-    margin: auto;
-}
-.section {
-    background: rgba(10,17,35,0.85);
-    margin: 20px 0;
-    padding: 18px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #00bfff;
-}
-.section h2 {
-    margin-top: 0;
-    padding-bottom: 6px;
-    border-bottom: 2px solid #00bfff;
-    font-size: 1.7rem;
-}
-.card {
-    background: rgba(15,23,48,0.9);
-    padding: 14px;
-    border-radius: 8px;
-    border: 1px solid #00bfff;
-    margin: 12px 0;
-}
-.card .title {
-    font-size: 1.3rem;
+
+.discord-footer a {
+    color: white;
+    text-decoration: none;
     font-weight: bold;
-    color: #00dfff;
+    font-size: 16px;
 }
-select {
-    padding: 10px;
-    font-size: 1rem;
-    background: rgba(0,0,0,0.8);
-    color: #00bfff;
-    border: 2px solid #00bfff;
-    border-radius: 6px;
+
+.discord-footer:hover {
+    background: #4752c4;
 }
-canvas {
-    max-width: 100%;
-    margin-top: 14px;
-}
-/* Нижний Discord баннер */
-.discord-banner-bottom {
-  margin: 40px auto 20px;
-  max-width: 680px;
-  background: linear-gradient(135deg, #7289da, #99aab5);
-  padding: 20px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.discord-banner-bottom a {
-  color: #fff;
-  font-size: 1.4rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-.discord-banner-bottom img {
-  width: 44px;
-  vertical-align: middle;
-  margin-right: 10px;
-}
-.discord-banner-bottom:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 35px rgba(0,0,0,0.7);
+
+.hidden {
+    display: none;
 }
 </style>
 </head>
-<body>
-<div class="overlay"></div>
 
-<header>
-    <h1>Analentic Projects</h1>
-    <p>Мониторинг онлайн Arizona & Rodina RP</p>
-</header>
+<body>
+
+<div class="topbar">
+    <div class="logo">Analentic Projects</div>
+</div>
 
 <div class="nav">
-    <button id="btnArizona" class="active" onclick="showProject('arizona')">Arizona RP</button>
-    <button id="btnRodina" onclick="showProject('rodina')">Rodina RP</button>
+    <button id="btnAZ" class="active" onclick="switchTab('az')">Arizona RP</button>
+    <button id="btnRD" onclick="switchTab('rd')">Rodina RP</button>
 </div>
 
-<div class="content">
+<div class="container">
 
-    <!-- Arizona RP -->
-    <div id="arizonaSection" class="section">
-        <h2>Arizona RolePlay</h2>
+    <!-- Arizona -->
+    <div id="azSection">
 
-        <div class="card">
-            <div class="title">Онлайн всего проекта</div>
-            <p id="az_total_online">Загрузка...</p>
+        <div class="block">
+            <div class="block-header">Общий онлайн проекта</div>
+            <div class="block-content">
+                <span id="az_total">Загрузка...</span>
+            </div>
         </div>
 
-        <div class="card">
-            <div class="title">Выбор сервера</div>
-            <select id="az_servers" onchange="loadArizonaServerStats()">
-                <option value="">Выбери сервер</option>
-                <option value="9767606">Arizona RP | Eshkere</option>
-            </select>
+        <div class="block">
+            <div class="block-header">Выбор сервера</div>
+            <div class="block-content">
+                <select id="az_select" onchange="loadAZ()">
+                    <option value="">Выберите сервер</option>
+                    <option value="9767606">Arizona RP | Eshkere</option>
+                </select>
+            </div>
         </div>
 
-        <div id="az_server_info" class="card" style="display:none;">
-            <div class="title" id="az_server_title">Сервер</div>
-            <p>Онлайн: <span id="az_online">0</span></p>
-            <p>Макс игроков: <span id="az_max">0</span></p>
-            <p>Статус: <span id="az_status">Загрузка...</span></p>
-            <canvas id="az_chart"></canvas>
+        <div class="block hidden" id="az_info">
+            <div class="block-header" id="az_name">Сервер</div>
+            <div class="block-content">
+                Онлайн: <span id="az_online"></span><br>
+                Макс: <span id="az_max"></span>
+                <canvas id="az_chart"></canvas>
+            </div>
         </div>
+
     </div>
 
-    <!-- Rodina RP -->
-    <div id="rodinaSection" class="section" style="display:none;">
-        <h2>Rodina RolePlay</h2>
+    <!-- Rodina -->
+    <div id="rdSection" class="hidden">
 
-        <div class="card">
-            <div class="title">Онлайн всего проекта</div>
-            <p id="rd_total_online">Загрузка...</p>
+        <div class="block">
+            <div class="block-header">Общий онлайн проекта</div>
+            <div class="block-content">
+                <span id="rd_total">Загрузка...</span>
+            </div>
         </div>
 
-        <div class="card">
-            <div class="title">Выбор сервера Rodina</div>
-            <select id="rd_servers" onchange="loadRodinaServerStats()">
-                <option value="">Выбери сервер</option>
-                <option value="10022967">Rodina RP | Official</option>
-            </select>
+        <div class="block">
+            <div class="block-header">Выбор сервера</div>
+            <div class="block-content">
+                <select id="rd_select" onchange="loadRD()">
+                    <option value="">Выберите сервер</option>
+                    <option value="10022967">Rodina RP | Official</option>
+                </select>
+            </div>
         </div>
 
-        <div id="rd_server_info" class="card" style="display:none;">
-            <div class="title" id="rd_server_title">Сервер</div>
-            <p>Онлайн: <span id="rd_online">0</span></p>
-            <p>Макс игроков: <span id="rd_max">0</span></p>
-            <p>Статус: <span id="rd_status">Загрузка...</span></p>
-            <canvas id="rd_chart"></canvas>
+        <div class="block hidden" id="rd_info">
+            <div class="block-header" id="rd_name">Сервер</div>
+            <div class="block-content">
+                Онлайн: <span id="rd_online"></span><br>
+                Макс: <span id="rd_max"></span>
+                <canvas id="rd_chart"></canvas>
+            </div>
         </div>
+
     </div>
 
 </div>
 
-<!-- Нижний Discord баннер -->
-<div class="discord-banner-bottom">
-  <a href="https://discord.gg/yhzmfQVNx" target="_blank">
-    <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/discord.svg" alt="Discord">
-    Присоединяйся к Discord серверу ✨Dark Straiwels✨
-  </a>
+<div class="discord-footer">
+    <a href="https://discord.gg/yhzmfQVNx" target="_blank">
+        Присоединяйтесь к Discord серверу ✨Dark Straiwels✨
+    </a>
 </div>
 
 <script>
-function showProject(project) {
-    document.getElementById("arizonaSection").style.display = project === "arizona" ? "block" : "none";
-    document.getElementById("rodinaSection").style.display = project === "rodina" ? "block" : "none";
-    document.getElementById("btnArizona").classList.toggle("active", project === "arizona");
-    document.getElementById("btnRodina").classList.toggle("active", project === "rodina");
+function switchTab(tab) {
+    document.getElementById("azSection").classList.toggle("hidden", tab !== "az");
+    document.getElementById("rdSection").classList.toggle("hidden", tab !== "rd");
+    document.getElementById("btnAZ").classList.toggle("active", tab === "az");
+    document.getElementById("btnRD").classList.toggle("active", tab === "rd");
 }
 
-let azHistory = [], rdHistory = [];
+let azHistory=[], rdHistory=[];
 let azChart, rdChart;
 
-async function updateTotalOnline() {
-    let totalAZ = 0;
-    try {
-        const res = await fetch("https://api.gamemonitoring.ru/servers/9767606");
-        const data = await res.json();
-        totalAZ += data.numplayers ?? 0;
-    } catch {}
-    document.getElementById("az_total_online").innerText = totalAZ;
+async function updateTotals(){
+    try{
+        let az = await fetch("https://api.gamemonitoring.ru/servers/9767606").then(r=>r.json());
+        document.getElementById("az_total").innerText = az.numplayers ?? 0;
+    }catch{}
 
-    let totalRD = 0;
-    try {
-        const res = await fetch("https://api.gamemonitoring.ru/servers/10022967");
-        const data = await res.json();
-        totalRD += data.numplayers ?? 0;
-    } catch {}
-    document.getElementById("rd_total_online").innerText = totalRD;
+    try{
+        let rd = await fetch("https://api.gamemonitoring.ru/servers/10022967").then(r=>r.json());
+        document.getElementById("rd_total").innerText = rd.numplayers ?? 0;
+    }catch{}
+}
+updateTotals();
+setInterval(updateTotals,30000);
+
+async function loadAZ(){
+    let sel=document.getElementById("az_select");
+    if(!sel.value) return;
+    let data=await fetch("https://api.gamemonitoring.ru/servers/"+sel.value).then(r=>r.json());
+    document.getElementById("az_info").classList.remove("hidden");
+    document.getElementById("az_name").innerText=sel.options[sel.selectedIndex].text;
+    document.getElementById("az_online").innerText=data.numplayers;
+    document.getElementById("az_max").innerText=data.maxplayers;
+
+    azHistory.push(data.numplayers);
+    if(azHistory.length>20) azHistory.shift();
+
+    if(!azChart){
+        azChart=new Chart(document.getElementById("az_chart"),{
+            type:"line",
+            data:{labels:azHistory.map((v,i)=>i+1),
+            datasets:[{label:"Онлайн",data:azHistory}]}
+        });
+    }else{
+        azChart.data.labels=azHistory.map((v,i)=>i+1);
+        azChart.data.datasets[0].data=azHistory;
+        azChart.update();
+    }
 }
 
-async function loadArizonaServerStats() {
-    const sel = document.getElementById("az_servers");
-    const id = sel.value;
-    if (!id) return;
+async function loadRD(){
+    let sel=document.getElementById("rd_select");
+    if(!sel.value) return;
+    let data=await fetch("https://api.gamemonitoring.ru/servers/"+sel.value).then(r=>r.json());
+    document.getElementById("rd_info").classList.remove("hidden");
+    document.getElementById("rd_name").innerText=sel.options[sel.selectedIndex].text;
+    document.getElementById("rd_online").innerText=data.numplayers;
+    document.getElementById("rd_max").innerText=data.maxplayers;
 
-    document.getElementById("az_server_info").style.display = "block";
-    document.getElementById("az_server_title").innerText = sel.options[sel.selectedIndex].text;
+    rdHistory.push(data.numplayers);
+    if(rdHistory.length>20) rdHistory.shift();
 
-    try {
-        const res = await fetch("https://api.gamemonitoring.ru/servers/" + id);
-        const data = await res.json();
-        const online = data.numplayers ?? 0;
-        const maxp = data.maxplayers ?? 0;
-        const statusTxt = data.online ? "Online" : "Offline";
-
-        document.getElementById("az_online").innerText = online;
-        document.getElementById("az_max").innerText = maxp;
-        document.getElementById("az_status").innerText = statusTxt;
-
-        azHistory.push(online);
-        if (azHistory.length > 20) azHistory.shift();
-
-        if (!azChart) {
-            const ctx = document.getElementById("az_chart").getContext("2d");
-            azChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: azHistory.map((v,i)=>i+1),
-                    datasets: [{ label:"Онлайн", data: azHistory, borderColor:"#00bfff", backgroundColor:"rgba(0,191,255,0.2)" }]
-                }
-            });
-        } else {
-            azChart.data.labels = azHistory.map((v,i)=>i+1);
-            azChart.data.datasets[0].data = azHistory;
-            azChart.update();
-        }
-    } catch {}
+    if(!rdChart){
+        rdChart=new Chart(document.getElementById("rd_chart"),{
+            type:"line",
+            data:{labels:rdHistory.map((v,i)=>i+1),
+            datasets:[{label:"Онлайн",data:rdHistory}]}
+        });
+    }else{
+        rdChart.data.labels=rdHistory.map((v,i)=>i+1);
+        rdChart.data.datasets[0].data=rdHistory;
+        rdChart.update();
+    }
 }
-
-async function loadRodinaServerStats() {
-    const sel = document.getElementById("rd_servers");
-    const id = sel.value;
-    if (!id) return;
-
-    document.getElementById("rd_server_info").style.display = "block";
-    document.getElementById("rd_server_title").innerText = sel.options[sel.selectedIndex].text;
-
-    try {
-        const res = await fetch("https://api.gamemonitoring.ru/servers/" + id);
-        const data = await res.json();
-        const online = data.numplayers ?? 0;
-        const maxp = data.maxplayers ?? 0;
-        const statusTxt = data.online ? "Online" : "Offline";
-
-        document.getElementById("rd_online").innerText = online;
-        document.getElementById("rd_max").innerText = maxp;
-        document.getElementById("rd_status").innerText = statusTxt;
-
-        rdHistory.push(online);
-        if (rdHistory.length > 20) rdHistory.shift();
-
-        if (!rdChart) {
-            const ctx = document.getElementById("rd_chart").getContext("2d");
-            rdChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: rdHistory.map((v,i)=>i+1),
-                    datasets: [{ label:"Онлайн", data: rdHistory, borderColor:"#00bfff", backgroundColor:"rgba(0,191,255,0.2)" }]
-                }
-            });
-        } else {
-            rdChart.data.labels = rdHistory.map((v,i)=>i+1);
-            rdChart.data.datasets[0].data = rdHistory;
-            rdChart.update();
-        }
-    } catch {}
-}
-
-updateTotalOnline();
-setInterval(updateTotalOnline, 30000);
 </script>
 
 </body>
