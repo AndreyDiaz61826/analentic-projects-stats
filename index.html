@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background: url('https://i.postimg.cc/pXWnFVsg/1772321795528.png') no-repeat center center fixed;
+            background: url('https://github.com/AndreyDiaz61826/analentic-projects-stats/raw/main/1772321795528.png') no-repeat center center fixed;
             background-size: cover;
             color: #00f0ff;
             font-family: 'Arial', sans-serif;
@@ -171,14 +171,13 @@ async function loadStats(){
     document.getElementById("statsCard").style.display="block";
     document.getElementById("serverTitle").innerText=serverSelect.options[serverSelect.selectedIndex].text;
 
-    // Публичные данные (можно обновить при наличии API)
     document.getElementById("devs").innerText="Unknown Devs";
     document.getElementById("sponsors").innerText="Unknown Sponsors";
     document.getElementById("engine").innerText="Unknown Engine";
 
     async function updateOnline(){
         try{
-            const online=Math.floor(Math.random()*1000); // заглушка для демо
+            const online=Math.floor(Math.random()*1000); 
             document.getElementById("online").innerText=online;
             document.getElementById("lastUpdate").innerText=new Date().toLocaleTimeString();
             document.getElementById("status").innerText=online>0?"🟢":"🔴";
