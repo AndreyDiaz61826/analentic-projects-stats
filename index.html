@@ -1,114 +1,112 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF‑8">
-    <title>Analentic Projects | Arizona & Rodina RP</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0c111f, #020408);
-            color: #e0e0e0;
-        }
-
-        header {
-            background: #0a0e1a;
-            padding: 20px;
-            text-align: center;
-            border-bottom: 3px solid #00bfff;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: #00bfff;
-            text-shadow: 0px 0px 8px #00bfff;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .nav button {
-            padding: 12px 24px;
-            font-size: 1rem;
-            background: #0e1330;
-            border: 2px solid #00bfff;
-            border-radius: 8px;
-            color: #00bfff;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .nav button.active,
-        .nav button:hover {
-            background: #00bfff;
-            color: #020408;
-            box-shadow: 0px 0px 15px #00bfff;
-        }
-
-        .content {
-            padding: 20px;
-            max-width: 960px;
-            margin: auto;
-        }
-
-        .section {
-            background: rgba(16,22,44,0.85);
-            margin: 20px 0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 12px #00bfff;
-        }
-        .section h2 {
-            margin-top: 0;
-            border-bottom: 2px solid #00bfff;
-            padding-bottom: 8px;
-            font-size: 1.6rem;
-        }
-
-        .card {
-            background: rgba(23,32,58,0.9);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #00bfff;
-            margin: 10px 0;
-        }
-        .card .title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #00dfff;
-        }
-
-        .discord-banner {
-            text-align: center;
-            padding: 18px;
-            margin: 20px auto;
-            background: #7289da;
-            border-radius: 8px;
-            max-width: 600px;
-        }
-        .discord-banner a {
-            font-size: 1.2rem;
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .discord-banner img {
-            width: 32px;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
-        canvas {
-            max-width: 100%;
-            margin-top: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Analentic Projects | Arizona & Rodina RP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0c111f, #020408);
+    color: #e0e0e0;
+}
+header {
+    background: #0a0e1a;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #00bfff;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    color: #00bfff;
+    text-shadow: 0px 0px 8px #00bfff;
+}
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+.nav button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    background: #0e1330;
+    border: 2px solid #00bfff;
+    border-radius: 8px;
+    color: #00bfff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.nav button.active,
+.nav button:hover {
+    background: #00bfff;
+    color: #020408;
+    box-shadow: 0px 0px 15px #00bfff;
+}
+.content {
+    padding: 20px;
+    max-width: 960px;
+    margin: auto;
+}
+.section {
+    background: rgba(16,22,44,0.85);
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 12px #00bfff;
+}
+.section h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #00bfff;
+    padding-bottom: 8px;
+    font-size: 1.6rem;
+}
+.card {
+    background: rgba(23,32,58,0.9);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #00bfff;
+    margin: 10px 0;
+}
+.card .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00dfff;
+}
+canvas {
+    max-width: 100%;
+    margin-top: 15px;
+}
+/* Нижний Discord баннер */
+.discord-banner-bottom {
+  margin: 40px auto 20px auto;
+  max-width: 650px;
+  background: linear-gradient(135deg, #7289da, #99aab5);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.discord-banner-bottom a {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.discord-banner-bottom img {
+  width: 40px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.discord-banner-bottom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+</style>
 </head>
-
 <body>
 
 <header>
@@ -116,20 +114,9 @@
     <p>Панель статистики Arizona RP & Rodina RP</p>
 </header>
 
-<div class="discord-banner">
-    <a href="https://discord.gg/yhzmfQVNx" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/discord.svg" alt="Discord">
-        Присоединяйся к Discord серверу ✨Dark Straiwels✨
-    </a>
-</div>
-
 <div class="nav">
-    <button id="btnArizona" class="active" onclick="showProject('arizona')">
-        Arizona RP
-    </button>
-    <button id="btnRodina" onclick="showProject('rodina')">
-        Rodina RP
-    </button>
+    <button id="btnArizona" class="active" onclick="showProject('arizona')">Arizona RP</button>
+    <button id="btnRodina" onclick="showProject('rodina')">Rodina RP</button>
 </div>
 
 <div class="content">
@@ -141,16 +128,14 @@
             <div class="title">Онлайн всего проекта</div>
             <p id="az_total_online">Загрузка...</p>
         </div>
-
         <div class="card">
             <div class="title">Выбор сервера</div>
             <select id="az_servers" onchange="loadArizonaServerStats()">
                 <option value="">Выбери сервер</option>
                 <option value="9767606">Arizona RP | Eshkere</option>
-                <!-- сюда можно добавить другие IP/API -->
+                <!-- добавляй реальные ID серверов сюда -->
             </select>
         </div>
-
         <div id="az_server_info" class="card" style="display:none;">
             <div class="title" id="az_server_title">Сервер</div>
             <p>Онлайн: <span id="az_online">0</span></p>
@@ -167,7 +152,6 @@
             <div class="title">Онлайн всего проекта</div>
             <p id="rd_total_online">Загрузка...</p>
         </div>
-
         <div class="card">
             <div class="title">Выбор сервера Rodina</div>
             <select id="rd_servers" onchange="loadRodinaServerStats()">
@@ -176,7 +160,6 @@
                 <option value="10105694">Rodina RP | Сервер 2</option>
             </select>
         </div>
-
         <div id="rd_server_info" class="card" style="display:none;">
             <div class="title" id="rd_server_title">Сервер</div>
             <p>Онлайн: <span id="rd_online">0</span></p>
@@ -188,12 +171,19 @@
 
 </div>
 
+<!-- Нижний Discord баннер -->
+<div class="discord-banner-bottom">
+  <a href="https://discord.gg/yhzmfQVNx" target="_blank">
+    <img src="https://cdn.jsdelivr.net/gh/edent/SuperTinyIcons/images/svg/discord.svg" alt="Discord">
+    Присоединяйся к Discord серверу <strong>✨Dark Straiwels✨</strong>
+  </a>
+</div>
+
 <script>
 // Переключение вкладок
 function showProject(project) {
     document.getElementById("arizonaSection").style.display = project === "arizona" ? "block" : "none";
     document.getElementById("rodinaSection").style.display = project === "rodina" ? "block" : "none";
-
     document.getElementById("btnArizona").classList.toggle("active", project === "arizona");
     document.getElementById("btnRodina").classList.toggle("active", project === "rodina");
 }
@@ -202,13 +192,39 @@ function showProject(project) {
 let azHistory = [], rdHistory = [];
 let azChart, rdChart;
 
+// Функция суммарного онлайн
+async function updateTotalOnline() {
+    // Arizona
+    const arizonaServers = [9767606]; // сюда добавь все реальные серверы Arizona RP
+    let totalAZ = 0;
+    for (let id of arizonaServers) {
+        try {
+            const res = await fetch("https://api.gamemonitoring.ru/servers/" + id);
+            const data = await res.json();
+            totalAZ += data.numplayers ?? 0;
+        } catch {}
+    }
+    document.getElementById("az_total_online").innerText = totalAZ;
+
+    // Rodina
+    const rodinaServers = [10022967, 10105694]; // реальные ID серверов Rodina
+    let totalRD = 0;
+    for (let id of rodinaServers) {
+        try {
+            const res = await fetch("https://api.gamemonitoring.ru/servers/" + id);
+            const data = await res.json();
+            totalRD += data.numplayers ?? 0;
+        } catch {}
+    }
+    document.getElementById("rd_total_online").innerText = totalRD;
+}
+
 // Загрузка статистики Arizona сервера
 async function loadArizonaServerStats() {
     const sel = document.getElementById("az_servers");
     const id = sel.value;
     if (!id) return;
 
-    // Показать блок статуса
     document.getElementById("az_server_info").style.display = "block";
     document.getElementById("az_server_title").innerText = sel.options[sel.selectedIndex].text;
 
@@ -226,7 +242,6 @@ async function loadArizonaServerStats() {
         document.getElementById("az_max").innerText = maxp;
         document.getElementById("az_status").innerText = statusTxt;
 
-        // График
         azHistory.push(online);
         if (azHistory.length > 20) azHistory.shift();
 
@@ -245,12 +260,10 @@ async function loadArizonaServerStats() {
             azChart.update();
         }
 
-    } catch (e) {
-        console.error("Ошибка Arizona:", e);
-    }
+    } catch (e) { console.error("Ошибка Arizona:", e); }
 }
 
-// Статистика Rodina сервера
+// Загрузка статистики Rodina сервера
 async function loadRodinaServerStats() {
     const sel = document.getElementById("rd_servers");
     const id = sel.value;
@@ -291,11 +304,13 @@ async function loadRodinaServerStats() {
             rdChart.update();
         }
 
-    } catch (e) {
-        console.error("Ошибка Rodina:", e);
-    }
+    } catch (e) { console.error("Ошибка Rodina:", e); }
 }
+
+// Запуск автообновления
+updateTotalOnline();
+setInterval(updateTotalOnline, 30000);
 </script>
 
 </body>
-</html>
+    </html>
