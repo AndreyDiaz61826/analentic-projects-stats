@@ -4,7 +4,6 @@
     <title>Аналитический Центр</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* Фон с затемнением */
         body {
             background: url('https://raw.githubusercontent.com/AndreyDiaz61826/analentic-projects-stats/main/1772321795528.png') no-repeat center center fixed;
             background-size: cover;
@@ -14,7 +13,6 @@
             margin: 0;
             position: relative;
         }
-
         body::before {
             content: "";
             position: fixed;
@@ -25,15 +23,12 @@
             background: rgba(0,0,0,0.5);
             z-index:0;
         }
-
         h1 {
             margin-top: 40px;
             text-shadow: 0 0 15px #00f0ff;
             position: relative;
             z-index: 1;
         }
-
-        /* Горизонтальное меню игр (как форум) */
         .menu-games {
             display: flex;
             justify-content: center;
@@ -42,7 +37,6 @@
             position: relative;
             z-index: 1;
         }
-
         .menu-games button {
             background: rgba(0,0,0,0.8);
             color: #00f0ff;
@@ -53,13 +47,11 @@
             font-weight: bold;
             transition: 0.3s;
         }
-
         .menu-games button:hover {
             background: #00f0ff;
             color: #0a0f1c;
             box-shadow: 0 0 15px #00f0ff;
         }
-
         .card {
             background: rgba(17,26,46,0.85);
             margin: 20px auto;
@@ -70,18 +62,15 @@
             position: relative;
             z-index: 1;
         }
-
         #status {
             font-weight:bold;
             font-size:18px;
         }
-
         canvas {
             max-width: 90%;
             margin: auto;
             display:block;
         }
-
         input[type=password] {
             padding:12px;
             border-radius:12px;
@@ -92,18 +81,15 @@
             position: relative;
             z-index:1;
         }
-
         input[type=password]:focus {
             outline:none;
             box-shadow: 0 0 15px #00f0ff;
         }
-
         .login-box {
             margin-top: 150px;
             position: relative;
             z-index:1;
         }
-
         #error {
             text-shadow: 0 0 5px red;
         }
@@ -111,7 +97,6 @@
 </head>
 <body>
 
-<!-- Вход по паролю -->
 <div id="loginScreen" class="login-box">
     <h1>Новый<br>Аналитический Центр<br>От команды 💎DARKS🍀</h1>
     <p>Введите пароль для доступа</p>
@@ -120,23 +105,16 @@
     <p id="error" style="color:red;"></p>
 </div>
 
-<!-- Основной интерфейс -->
 <div id="mainPanel" style="display:none;">
     <h1>Новый Аналитический Центр</h1>
 
-    <!-- Горизонтальное меню игр -->
     <div class="menu-games">
-        <button onclick="selectGame('arizona')">Arizona RP</button>
-        <button onclick="selectGame('black')">Black Russia</button>
-        <button onclick="selectGame('grand')">Grand Mobile</button>
         <button onclick="selectGame('rodina')">Rodina RP</button>
     </div>
 
-    <!-- Список серверов -->
     <select id="serverSelect" onchange="loadStats()" style="display:none; margin-top:20px;">
     </select>
 
-    <!-- Карточка статистики -->
     <div class="card" id="statsCard">
         <h2 id="serverTitle"></h2>
         <p>Онлайн: <span id="online">0</span> <span id="status">🟢</span></p>
@@ -149,8 +127,8 @@
 </div>
 
 <script>
-// Пароль
 const PASSWORD = "Ben2Tennis3451";
+
 function checkPassword() {
     const input = document.getElementById("passwordInput").value;
     if(input === PASSWORD){
@@ -161,58 +139,58 @@ function checkPassword() {
     }
 }
 
-// Игры и серверы
+// Игры и сервера с реальным API
 const games = {
-    arizona:[{name:"Phoenix",id:9767606},{name:"Tucson",id:9767607}],
-    black:[{name:"Moscow",id:16588},{name:"St.Petersburg",id:16589}],
-    grand:[{name:"Server 1",id:101},{name:"Server 2",id:102}],
-    rodina:[{name:"Rodina 1",id:201},{name:"Rodina 2",id:202}]
+    rodina:[
+        {name:"Rodina 1", api:"https://api.gamemonitoring.ru/servers/10022967"},
+        {name:"Rodina 2", api:"https://api.gamemonitoring.ru/servers/10105694"}
+    ]
 };
 
 let onlineHistory=[];
 let chart;
 
-// Выбор игры через кнопки
 function selectGame(game) {
-    document.getElementById("serverSelect").innerHTML="";
-    document.getElementById("statsCard").style.display="none";
-    const servers = games[game];
-    if(!servers) return;
     const serverSelect = document.getElementById("serverSelect");
-    servers.forEach(s=>{
+    serverSelect.innerHTML="";
+    document.getElementById("statsCard").style.display="none";
+
+    games[game].forEach(s => {
         let option = document.createElement("option");
         option.text = s.name;
-        option.value = s.id;
+        option.value = s.api;
         serverSelect.add(option);
     });
-    serverSelect.style.display="inline-block";
+    serverSelect.style.display = "inline-block";
 }
 
-// Статистика сервера
+// Подгрузка статистики через API
 async function loadStats(){
     const serverSelect=document.getElementById("serverSelect");
-    const serverId=serverSelect.value;
-    if(!serverId) return;
+    const apiUrl=serverSelect.value;
+    if(!apiUrl) return;
     document.getElementById("statsCard").style.display="block";
     document.getElementById("serverTitle").innerText=serverSelect.options[serverSelect.selectedIndex].text;
 
-    // Заглушки для публичных данных
     document.getElementById("devs").innerText="Unknown Devs";
     document.getElementById("sponsors").innerText="Unknown Sponsors";
     document.getElementById("engine").innerText="Unknown Engine";
 
     async function updateOnline(){
-        try{
-            const online=Math.floor(Math.random()*1000); 
-            document.getElementById("online").innerText=online;
-            document.getElementById("lastUpdate").innerText=new Date().toLocaleTimeString();
-            document.getElementById("status").innerText=online>0?"🟢":"🔴";
+        try {
+            const res = await fetch(apiUrl);
+            const data = await res.json();
+            const online = data.numplayers || 0;
+            document.getElementById("online").innerText = online;
+            document.getElementById("status").innerText = online>0?"🟢":"🔴";
+            document.getElementById("lastUpdate").innerText = new Date().toLocaleTimeString();
+
             onlineHistory.push(online);
             if(onlineHistory.length>20) onlineHistory.shift();
-            chart.data.labels=onlineHistory.map((v,i)=>i+1);
-            chart.data.datasets[0].data=onlineHistory;
+            chart.data.labels = onlineHistory.map((v,i)=>i+1);
+            chart.data.datasets[0].data = onlineHistory;
             chart.update();
-        } catch(e){
+        } catch(e) {
             document.getElementById("online").innerText="Ошибка";
             document.getElementById("status").innerText="🔴";
         }
