@@ -1,222 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Аналитический Центр</title>
+    <meta charset="UTF-8">
+    <title>Arizona RP Stat</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
-            background: url('https://raw.githubusercontent.com/AndreyDiaz61826/analentic-projects-stats/main/1772321795528.png') no-repeat center center fixed;
-            background-size: cover;
+            background: #0a0f1c;
             color: #00f0ff;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             text-align: center;
-            margin: 0;
-            position: relative;
-        }
-        body::before {
-            content: "";
-            position: fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background: rgba(0,0,0,0.5);
-            z-index:0;
-        }
-        h1 {
-            margin-top: 40px;
-            text-shadow: 0 0 15px #00f0ff;
-            position: relative;
-            z-index: 1;
-        }
-        .menu-games {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        .menu-games button {
-            background: rgba(0,0,0,0.8);
-            color: #00f0ff;
-            border: 2px solid #00f0ff;
-            border-radius: 12px;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .menu-games button:hover {
-            background: #00f0ff;
-            color: #0a0f1c;
-            box-shadow: 0 0 15px #00f0ff;
+            padding: 20px;
         }
         .card {
-            background: rgba(17,26,46,0.85);
-            margin: 20px auto;
+            background: rgba(17,26,46,0.9);
+            margin: auto;
             padding: 20px;
             width: 400px;
-            border-radius: 16px;
-            box-shadow: 0 0 20px #00f0ff;
-            position: relative;
-            z-index: 1;
-        }
-        #status {
-            font-weight:bold;
-            font-size:18px;
-        }
-        canvas {
-            max-width: 90%;
-            margin: auto;
-            display:block;
-        }
-        input[type=password] {
-            padding:12px;
-            border-radius:12px;
-            border:none;
-            font-size:16px;
-            background: rgba(17,26,46,0.8);
-            color:#00f0ff;
-            position: relative;
-            z-index:1;
-        }
-        input[type=password]:focus {
-            outline:none;
+            border-radius: 12px;
             box-shadow: 0 0 15px #00f0ff;
         }
-        .login-box {
-            margin-top: 150px;
-            position: relative;
-            z-index:1;
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
-        #error {
-            text-shadow: 0 0 5px red;
+        .label {
+            font-weight: bold;
+        }
+        canvas { 
+            margin-top: 20px; 
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
         }
     </style>
 </head>
 <body>
 
-<div id="loginScreen" class="login-box">
-    <h1>Новый<br>Аналитический Центр<br>От команды 💎DARKS🍀</h1>
-    <p>Введите пароль для доступа</p>
-    <input type="password" id="passwordInput" placeholder="Пароль">
-    <button onclick="checkPassword()">Войти</button>
-    <p id="error" style="color:red;"></p>
+<div class="card">
+    <div class="title">Arizona RP | Eshkere</div>
+    <p><span class="label">Статус:</span> <span id="statusText">Загрузка...</span></p>
+    <p><span class="label">Онлайн:</span> <span id="onlineCount">0</span></p>
+    <p><span class="label">Макс игроков:</span> <span id="maxPlayers">0</span></p>
+    <p><span class="label">IP:PORT:</span> 185.169.134.107:7777</p>
 </div>
 
-<div id="mainPanel" style="display:none;">
-    <h1>Новый Аналитический Центр</h1>
-
-    <div class="menu-games">
-        <button onclick="selectGame('rodina')">Rodina RP</button>
-    </div>
-
-    <select id="serverSelect" onchange="loadStats()" style="display:none; margin-top:20px;">
-    </select>
-
-    <div class="card" id="statsCard">
-        <h2 id="serverTitle"></h2>
-        <p>Онлайн: <span id="online">0</span> <span id="status">🟢</span></p>
-        <p>Последнее обновление: <span id="lastUpdate">--:--:--</span></p>
-        <p>Разработчики: <span id="devs"></span></p>
-        <p>Спонсоры: <span id="sponsors"></span></p>
-        <p>Движок: <span id="engine"></span></p>
-        <canvas id="onlineChart"></canvas>
-    </div>
-</div>
+<canvas id="onlineChart" width="400" height="200"></canvas>
 
 <script>
-const PASSWORD = "Ben2Tennis3451";
+// URL реального API
+const API_URL = "https://api.gamemonitoring.ru/servers/9767606";
 
-function checkPassword() {
-    const input = document.getElementById("passwordInput").value;
-    if(input === PASSWORD){
-        document.getElementById("loginScreen").style.display="none";
-        document.getElementById("mainPanel").style.display="block";
-    } else {
-        document.getElementById("error").innerText="Неверный пароль";
-    }
-}
-
-// Игры и сервера с реальным API
-const games = {
-    rodina:[
-        {name:"Rodina 1", api:"https://api.gamemonitoring.ru/servers/10022967"},
-        {name:"Rodina 2", api:"https://api.gamemonitoring.ru/servers/10105694"}
-    ]
-};
-
-let onlineHistory=[];
+// История онлайн для графика
+let onlineHistory = [];
 let chart;
 
-function selectGame(game) {
-    const serverSelect = document.getElementById("serverSelect");
-    serverSelect.innerHTML="";
-    document.getElementById("statsCard").style.display="none";
+// Функция обновления данных
+async function updateServerStats() {
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-    games[game].forEach(s => {
-        let option = document.createElement("option");
-        option.text = s.name;
-        option.value = s.api;
-        serverSelect.add(option);
-    });
-    serverSelect.style.display = "inline-block";
-}
+        // Вставляем данные в карточку
+        const online = data.numplayers ?? 0;
+        const maxPlayers = data.maxplayers ?? 0;
+        const status = data.online ? "🟢 Онлайн" : "🔴 Оффлайн";
 
-// Подгрузка статистики через API
-async function loadStats(){
-    const serverSelect=document.getElementById("serverSelect");
-    const apiUrl=serverSelect.value;
-    if(!apiUrl) return;
-    document.getElementById("statsCard").style.display="block";
-    document.getElementById("serverTitle").innerText=serverSelect.options[serverSelect.selectedIndex].text;
+        document.getElementById("onlineCount").innerText = online;
+        document.getElementById("maxPlayers").innerText = maxPlayers;
+        document.getElementById("statusText").innerText = status;
 
-    document.getElementById("devs").innerText="Unknown Devs";
-    document.getElementById("sponsors").innerText="Unknown Sponsors";
-    document.getElementById("engine").innerText="Unknown Engine";
+        // Обновление графика
+        onlineHistory.push(online);
+        if (onlineHistory.length > 20) onlineHistory.shift();
 
-    async function updateOnline(){
-        try {
-            const res = await fetch(apiUrl);
-            const data = await res.json();
-            const online = data.numplayers || 0;
-            document.getElementById("online").innerText = online;
-            document.getElementById("status").innerText = online>0?"🟢":"🔴";
-            document.getElementById("lastUpdate").innerText = new Date().toLocaleTimeString();
-
-            onlineHistory.push(online);
-            if(onlineHistory.length>20) onlineHistory.shift();
-            chart.data.labels = onlineHistory.map((v,i)=>i+1);
+        if (!chart) {
+            const ctx = document.getElementById('onlineChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: onlineHistory.map((v, i) => i + 1),
+                    datasets: [{
+                        label: 'Онлайн',
+                        data: onlineHistory,
+                        borderColor: '#00f0ff',
+                        backgroundColor: 'rgba(0,240,255,0.2)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    scales: { y: { beginAtZero: true } },
+                    responsive: true
+                }
+            });
+        } else {
+            chart.data.labels = onlineHistory.map((v, i) => i + 1);
             chart.data.datasets[0].data = onlineHistory;
             chart.update();
-        } catch(e) {
-            document.getElementById("online").innerText="Ошибка";
-            document.getElementById("status").innerText="🔴";
         }
+    } catch (error) {
+        console.error("Ошибка обновления:", error);
     }
-
-    if(!chart){
-        const ctx=document.getElementById('onlineChart').getContext('2d');
-        chart=new Chart(ctx,{
-            type:'line',
-            data:{
-                labels:[],
-                datasets:[{
-                    label:'Онлайн',
-                    data:[],
-                    borderColor:'#00f0ff',
-                    backgroundColor:'rgba(0,240,255,0.2)',
-                    tension:0.3
-                }]
-            },
-            options:{responsive:true,animation:{duration:500}}
-        });
-    }
-
-    updateOnline();
-    setInterval(updateOnline,30000);
 }
+
+// Запуск автообновления
+updateServerStats();
+setInterval(updateServerStats, 30000);
 </script>
 
 </body>
